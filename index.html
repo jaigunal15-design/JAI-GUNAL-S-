@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jai Gunal S — Portfolio</title>
+<meta name="description" content="Portfolio of Jai Gunal S, first-year B.Tech Information Technology student.">
+<meta name="theme-color" content="#0f0d0b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+
+<style>
+/* ==========================================================
+   JAI GUNAL S — a title sequence you can scroll
+   Colours: film ink #0f0d0b · paper #efe6d2 · projector amber #e9a23b
+   ========================================================== */
+:root{
+  --ink:#0f0d0b;
+  --black:#050403;
+  --paper:#efe6d2;
+  --amber:#e9a23b;
+  --dim:rgba(239,230,210,.62);
+  --line:rgba(239,230,210,.18);
+  --ease:cubic-bezier(.2,.7,.15,1);
+  --display:'Big Shoulders Display','Arial Narrow',Impact,sans-serif;
+  --serif:'Instrument Serif',Georgia,'Times New Roman',serif;
+  --bar:30px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  padding:var(--bar) 0;
+  background:var(--ink);
+  color:var(--paper);
+  font-family:var(--serif);
+  font-size:1.25rem;
+  line-height:1.5;
+  overflow-x:clip;
+}
+body:not(.ready){overflow:hidden}
+a{color:inherit}
+::selection{background:var(--amber);color:var(--ink)}
+:focus-visible{outline:2px solid var(--amber);outline-offset:4px}
+
+/* film grain: inline SVG noise, very quiet */
+body::after{
+  content:"";position:fixed;inset:0;z-index:55;pointer-events:none;opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- permanent letterbox + film-strip progress ---------- */
+.bar{
+  position:fixed;left:0;right:0;height:var(--bar);z-index:60;
+  background:var(--black);
+  display:flex;align-items:center;gap:14px;padding:0 14px;
+  font:700 11px/1 var(--display);letter-spacing:.18em;text-transform:uppercase;color:var(--dim);
+}
+.bar.top{top:0}
+.bar.bot{bottom:0;justify-content:space-between}
+.bar b{color:var(--amber);font-weight:700}
+.strip{position:relative;flex:1;height:12px}
+.strip i{
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,var(--c) 0 9px,transparent 9px 16px) 0 0/16px 100%;
+}
+.strip .base{--c:rgba(239,230,210,.2)}
+.strip .fill{--c:var(--amber);clip-path:inset(0 calc(100% - var(--p,0%)) 0 0)}
+.tc{font-variant-numeric:tabular-nums;color:var(--paper)}
+
+/* ---------- opening title sequence ---------- */
+#intro{
+  position:fixed;inset:0;z-index:200;background:var(--ink);
+  display:grid;place-items:center;overflow:hidden;
+  transition:background .4s ease;
+}
+#intro .ib{
+  position:absolute;left:0;right:0;height:0;background:var(--black);
+  transition:height .45s cubic-bezier(.7,0,.2,1);z-index:1;
+}
+#intro .ib.t{top:0}
+#intro .ib.b{bottom:0}
+#intro.on .ib{height:16vh}
+#intro.out{background:transparent}
+#intro.out .ib{height:var(--bar);transition-duration:.4s}
+.iw,.iname{position:absolute;left:0;right:0;text-align:center;opacity:0;padding:0 16px}
+.iw{
+  font:900 clamp(3.4rem,17vw,10rem)/.9 var(--display);
+  text-transform:uppercase;letter-spacing:.04em;color:var(--amber);
+}
+.iw.show{opacity:1}
+.iname small{
+  display:block;margin-bottom:.9em;
+  font:700 .8rem/1 var(--display);letter-spacing:.42em;text-transform:uppercase;color:var(--dim);
+}
+.iname strong{
+  display:block;font:900 clamp(2.5rem,12vw,8rem)/.9 var(--display);
+  text-transform:uppercase;letter-spacing:.3em;color:var(--paper);
+  transition:letter-spacing .7s var(--ease),opacity .3s ease;
+}
+.iname.show{opacity:1}
+.iname.show strong{letter-spacing:.03em}
+#skip{
+  position:absolute;right:14px;bottom:calc(8vh - 22px);z-index:3;
+  min-height:44px;padding:0 18px;
+  background:transparent;color:var(--paper);border:1.5px solid var(--line);
+  font:700 .8rem/1 var(--display);letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
+  transition:border-color .2s ease,color .2s ease;
+}
+#skip:hover{border-color:var(--amber);color:var(--amber)}
+
+/* ---------- layout helpers ---------- */
+.wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 20px}
+section{position:relative;padding:clamp(72px,12vw,150px) 0}
+.h2{
+  margin:0 0 .5em;
+  font:900 clamp(2.9rem,10.5vw,7rem)/.88 var(--display);
+  text-transform:uppercase;letter-spacing:.005em;
+}
+.sc{
+  display:block;margin-bottom:.9rem;
+  font:700 .85rem/1 var(--display);letter-spacing:.32em;color:var(--amber);
+}
+.cut{
+  display:flex;align-items:center;gap:14px;
+  max-width:1180px;margin:0 auto;padding:0 20px;
+  font:700 .75rem/1 var(--display);letter-spacing:.32em;text-transform:uppercase;color:var(--dim);
+}
+.cut::before,.cut::after{content:"";flex:1;height:1px;background:var(--line)}
+.cut span{color:var(--amber)}
+
+/* reveal */
+html.js .rv{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease) var(--d,0s),transform .9s var(--ease) var(--d,0s)}
+html.js .rv.in{opacity:1;transform:none}
+
+/* ---------- landing ---------- */
+.hero{
+  min-height:calc(100svh - var(--bar)*2);
+  display:flex;flex-direction:column;justify-content:space-between;
+  padding:28px 0 44px;
+}
+.hero .top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.credit-line{
+  font:700 .8rem/1.6 var(--display);letter-spacing:.26em;text-transform:uppercase;color:var(--dim);
+  max-width:15em;
+}
+.credit-line b{display:block;color:var(--amber);font-weight:700}
+.mono{width:84px;height:84px;flex:none;color:var(--paper);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.mono .sweep{transform-origin:60px 60px;animation:sweep 6s linear infinite}
+@keyframes sweep{to{transform:rotate(360deg)}}
+.name{margin:clamp(40px,9vh,90px) 0 0;font:900 min(22vw,17rem)/.84 var(--display);text-transform:uppercase;letter-spacing:-.005em}
+.nm{display:block;overflow:hidden;padding:.05em 0}
+.nm span{display:block;transform:translateY(108%);transition:transform 1.05s var(--ease)}
+.ready .nm span{transform:none}
+.nm:nth-child(2) span{transition-delay:.12s}
+.nm:nth-child(2){margin-left:clamp(0px,6vw,110px)}
+.nm .dot{color:var(--amber)}
+.hero .low{margin-top:clamp(34px,6vh,60px);display:grid;gap:22px;max-width:640px}
+.tag{margin:0;font-size:clamp(1.55rem,5.4vw,2.35rem);line-height:1.12;font-style:italic}
+.now{
+  margin:0;font:700 .85rem/1.5 var(--display);letter-spacing:.2em;text-transform:uppercase;color:var(--dim);
+  padding-left:30px;position:relative;
+}
+.now::before{
+  content:"";position:absolute;left:0;top:.5em;width:12px;height:12px;border-radius:50%;
+  background:var(--amber);animation:rec 1.6s steps(2,jump-none) infinite;
+}
+@keyframes rec{50%{opacity:.15}}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{
+  position:relative;display:inline-flex;align-items:center;justify-content:center;
+  min-height:52px;padding:0 30px;text-decoration:none;
+  font:900 1.15rem/1 var(--display);letter-spacing:.2em;text-transform:uppercase;
+  border:2px solid var(--paper);overflow:hidden;isolation:isolate;
+  transition:color .35s var(--ease),border-color .35s var(--ease);
+}
+.btn::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  transform:translateY(101%);transition:transform .45s var(--ease);
+  background:repeating-linear-gradient(115deg,var(--amber) 0 18px,var(--paper) 18px 36px);
+}
+.btn.solid{background:var(--amber);border-color:var(--amber);color:var(--ink)}
+.btn.solid::before{background:repeating-linear-gradient(115deg,var(--paper) 0 18px,var(--black) 18px 36px)}
+.btn:hover::before,.btn:focus-visible::before{transform:none}
+.btn:hover,.btn:focus-visible{color:var(--ink)}
+.btn.solid:hover{color:var(--ink)}
+.hero .rv{--d:0s}
+.ready .hero .rv{transition-delay:calc(.5s + var(--n,0)*.12s)}
+
+/* ---------- about ---------- */
+.about .grid{display:grid;gap:36px}
+.about .story p{margin:0 0 1.15em}
+.about .story p:first-child::first-letter{
+  float:left;font:900 5.2rem/.78 var(--display);color:var(--amber);padding:.06em .1em 0 0;
+}
+.about .aside{
+  font-style:italic;font-size:clamp(1.5rem,4.4vw,2.1rem);line-height:1.15;color:var(--amber);
+  border-left:3px solid var(--amber);padding-left:18px;margin:1.6em 0 0;
+}
+
+/* ---------- skills: cast list ---------- */
+.skills .list{margin:0;padding:0;list-style:none;max-width:760px}
+.skills li{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px;padding:15px 0;border-top:1px solid var(--line)}
+.skills li:last-child{border-bottom:1px solid var(--line)}
+.skills .what{font:900 1.5rem/1 var(--display);letter-spacing:.06em;text-transform:uppercase}
+.skills .lead{flex:1;min-width:14px;border-bottom:2px dotted var(--line);transform:translateY(-4px)}
+.skills .lvl{font-style:italic;font-size:1.3rem;color:var(--amber)}
+.skills .note{flex-basis:100%;margin:0;font-size:1rem;color:var(--dim);line-height:1.35}
+.skills .key{margin:26px 0 0;font:700 .8rem/1.8 var(--display);letter-spacing:.22em;text-transform:uppercase;color:var(--dim);max-width:760px}
+
+/* ---------- journey: three reels ---------- */
+.reel{display:grid;gap:8px 28px;padding:34px 0;border-top:1px solid var(--line)}
+.reel:last-child{border-bottom:1px solid var(--line)}
+.reel .num{
+  font:900 clamp(5.5rem,24vw,13rem)/.8 var(--display);
+  color:transparent;-webkit-text-stroke:1.5px var(--amber);
+}
+.reel h3{margin:0;font:900 clamp(1.9rem,6vw,3rem)/1 var(--display);text-transform:uppercase;letter-spacing:.02em}
+.reel .k{display:block;margin-bottom:.4rem;font:700 .8rem/1 var(--display);letter-spacing:.3em;text-transform:uppercase;color:var(--amber)}
+.reel p{margin:.7em 0 0;max-width:34em}
+.reel ul{margin:.6em 0 0;padding:0;list-style:none}
+.reel li{padding:.25em 0 .25em 1.4em;position:relative}
+.reel li::before{content:"";position:absolute;left:0;top:.85em;width:.7em;height:2px;background:var(--amber)}
+
+/* ---------- beyond code: deleted scenes ---------- */
+.slips{display:grid;gap:26px;margin-top:20px}
+.slip{
+  background:var(--paper);color:var(--ink);padding:22px 22px 24px;
+  box-shadow:6px 6px 0 var(--amber);
+  transform:rotate(var(--r,0deg));
+  max-width:520px;
+}
+.slip:nth-child(1){--r:-1.4deg}
+.slip:nth-child(2){--r:1deg;margin-left:auto}
+.slip:nth-child(3){--r:-.6deg}
+.slip h3{margin:0 0 .35em;font:900 1.7rem/1 var(--display);text-transform:uppercase;letter-spacing:.03em}
+.slip p{margin:0;font-size:1.15rem;line-height:1.35}
+.slip .tape{display:block;margin-bottom:10px;font:700 .7rem/1 var(--display);letter-spacing:.3em;text-transform:uppercase;color:#7a6a4d}
+
+/* ---------- contact: end credits ---------- */
+.contact .big{
+  margin:0 0 .3em;font:900 clamp(3.4rem,14vw,10rem)/.84 var(--display);text-transform:uppercase;
+}
+.contact .big em{font-style:normal;color:var(--amber)}
+.contact .lede{max-width:28em;margin:0 0 40px;color:var(--dim)}
+.credits{margin:0;padding:0;list-style:none;max-width:860px}
+.credits a{
+  display:grid;gap:2px;padding:22px 0;text-decoration:none;border-top:1px solid var(--line);
+  transition:padding-left .45s var(--ease),color .3s ease;
+}
+.credits li:last-child a{border-bottom:1px solid var(--line)}
+.credits .role{font:700 .8rem/1 var(--display);letter-spacing:.32em;text-transform:uppercase;color:var(--amber)}
+.credits .val{font-size:clamp(1.35rem,5.4vw,2.4rem);line-height:1.1;overflow-wrap:anywhere}
+.credits a:hover,.credits a:focus-visible{padding-left:16px;color:var(--amber)}
+footer{padding:40px 0 70px;text-align:center}
+footer .end{font:900 clamp(2.2rem,9vw,4.5rem)/1 var(--display);letter-spacing:.4em;text-indent:.4em;text-transform:uppercase}
+footer p{margin:14px 0 0;font:700 .75rem/1 var(--display);letter-spacing:.28em;text-transform:uppercase;color:var(--dim)}
+
+/* ---------- easter egg: clapperboard ---------- */
+#clap{
+  position:fixed;inset:0;z-index:300;display:grid;place-items:center;
+  background:rgba(5,4,3,.94);cursor:pointer;
+  opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s;
+}
+#clap.on{opacity:1;visibility:visible}
+.slate{width:min(86vw,440px)}
+.sticks{position:relative;height:84px}
+.stick{
+  position:absolute;left:0;right:0;height:36px;
+  background:repeating-linear-gradient(115deg,var(--paper) 0 26px,var(--black) 26px 52px);
+  border:2px solid var(--paper);
+}
+.stick.base{bottom:0}
+.stick.arm{bottom:40px;transform-origin:0 100%;transform:rotate(-24deg)}
+#clap.on .stick.arm{animation:clap .28s .35s cubic-bezier(.6,0,.9,.5) forwards}
+@keyframes clap{to{transform:rotate(0deg)}}
+.board{border:2px solid var(--paper);border-top:0;padding:18px 20px 22px;background:var(--black)}
+.board dl{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:16px 12px}
+.board dt{font:700 .7rem/1 var(--display);letter-spacing:.3em;text-transform:uppercase;color:var(--dim)}
+.board dd{margin:4px 0 0;font:900 1.9rem/1 var(--display);text-transform:uppercase;letter-spacing:.04em}
+.board .wide{grid-column:1/-1}
+.cutword{
+  margin:26px 0 0;text-align:center;font:900 clamp(3rem,14vw,6rem)/1 var(--display);
+  letter-spacing:.1em;color:var(--amber);text-transform:uppercase;
+  opacity:0;transform:scale(1.25);
+}
+#clap.on .cutword{animation:cutin .25s .75s var(--ease) forwards}
+@keyframes cutin{to{opacity:1;transform:none}}
+
+/* ---------- wider screens ---------- */
+@media (min-width:760px){
+  body{font-size:1.4rem}
+  .wrap,.cut{padding:0 48px}
+  .bar{padding:0 24px}
+  .mono{width:150px;height:150px}
+  .hero{padding-top:44px}
+  .about .grid{grid-template-columns:4fr 7fr;gap:72px}
+  .about .head{position:sticky;top:70px;align-self:start}
+  .skills .lvl{font-size:1.5rem}
+  .skills .what{font-size:1.85rem}
+  .reel{grid-template-columns:minmax(150px,1fr) 3fr;align-items:start;padding:44px 0}
+  .reel:nth-child(2){margin-left:6vw}
+  .slips{grid-template-columns:repeat(6,1fr);gap:34px}
+  .slip:nth-child(1){grid-column:1/4}
+  .slip:nth-child(2){grid-column:4/7;margin-top:56px}
+  .slip:nth-child(3){grid-column:2/5;margin-top:-6px}
+  .credits a{grid-template-columns:200px 1fr;align-items:baseline;gap:24px}
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html.js .rv{opacity:1;transform:none}
+  .nm span{transform:none}
+  #clap .stick.arm{transform:none}
+  #clap .cutword{opacity:1;transform:none}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Opening title sequence (plays once, <2.5s, skippable) -->
+<div id="intro" aria-hidden="false">
+  <div class="ib t"></div>
+  <div class="ib b"></div>
+  <div class="iw" data-w>Curious</div>
+  <div class="iw" data-w>Patient</div>
+  <div class="iw" data-w>Building</div>
+  <div class="iname" id="iname"><small>A portfolio by</small><strong>Jai Gunal S</strong></div>
+  <button id="skip" type="button">Skip</button>
+</div>
+
+<!-- Permanent letterbox with film-strip scroll progress -->
+<div class="bar top" aria-hidden="true">
+  <span>Jai<b>·</b>G<b>·</b>S</span>
+  <div class="strip"><i class="base"></i><i class="fill" id="fill"></i></div>
+</div>
+<div class="bar bot" aria-hidden="true">
+  <span id="scene">Scene 00 — Title</span>
+  <span class="tc" id="tc">00:00:00</span>
+</div>
+
+<main>
+
+<!-- ============ LANDING ============ -->
+<header class="wrap hero" id="top" data-scene="Scene 00 — Title">
+  <div class="top">
+    <p class="credit-line rv" style="--n:0"><b>A portfolio</b>First-year B.Tech<br>Information Technology</p>
+    <svg class="mono rv" style="--n:1" id="mono" viewBox="0 0 120 120" role="img" aria-label="Monogram: J, G, S">
+      <circle cx="60" cy="60" r="55" fill="none" stroke="currentColor" stroke-width="2"/>
+      <circle cx="60" cy="60" r="45" fill="none" stroke="currentColor" stroke-width="1" opacity=".55"/>
+      <path d="M60 2v16M60 102v16M2 60h16M102 60h16" stroke="currentColor" stroke-width="1.5"/>
+      <g class="sweep"><path d="M60 60L60 6" stroke="#e9a23b" stroke-width="2"/></g>
+      <text x="60" y="73" text-anchor="middle" font-family="'Big Shoulders Display',Impact,sans-serif" font-weight="900" font-size="40" letter-spacing="1" fill="#e9a23b">JGS</text>
+    </svg>
+  </div>
+
+  <h1 class="name" aria-label="Jai Gunal S">
+    <span class="nm"><span>Jai</span></span>
+    <span class="nm"><span>Gunal <span class="dot" style="display:inline">S</span></span></span>
+  </h1>
+
+  <div class="low">
+    <!-- EDIT: your one-line tagline -->
+    <p class="tag rv" style="--n:2">I'm learning to build things that work first, then feel good to use.</p>
+    <!-- EDIT: your "currently" line -->
+    <p class="now rv" style="--n:3">Currently: learning programming and the web, one small project at a time</p>
+    <div class="btns rv" style="--n:4">
+      <a class="btn solid" href="#about">Explore</a>
+      <a class="btn" href="#contact">Say hi</a>
+    </div>
+  </div>
+</header>
+
+<div class="cut"><span>Cut to</span></div>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about" data-scene="Scene 01 — The story">
+  <div class="wrap grid">
+    <div class="head rv">
+      <h2 class="h2"><span class="sc">Scene 01</span>The story so far</h2>
+    </div>
+    <!-- EDIT: replace with your own story -->
+    <div class="story">
+      <p class="rv">I'm Jai, a first-year B.Tech student in Information Technology. I chose this course because I wanted to understand the things I use every single day: how a page appears when I tap a link, how an app knows what I just pressed.</p>
+      <p class="rv">Right now I'm at the stage where every small win feels loud. A program that runs on the first try. A layout that finally lines up. A bug I fixed without asking anyone. I'm not trying to rush past that stage; I'd rather learn the basics properly and enjoy it.</p>
+      <p class="rv">I like getting details right more than getting things done fast. That is why this site looks like the opening of a film: every project I'll ever make starts as a blank screen and a title, and I wanted mine to start with some care.</p>
+      <p class="aside rv">Slow and careful now, so I can be fast and sure later.</p>
+    </div>
+  </div>
+</section>
+
+<div class="cut"><span>Cut to</span></div>
+
+<!-- ============ SKILLS ============ -->
+<section class="skills" id="skills" data-scene="Scene 02 — The cast">
+  <div class="wrap">
+    <h2 class="h2 rv"><span class="sc">Scene 02</span>The cast</h2>
+    <p class="rv" style="max-width:30em;color:var(--dim);margin:0 0 36px">Everything I work with, and an honest word on how well I know it today.</p>
+    <!-- EDIT: change tools and levels so they match you -->
+    <ul class="list">
+      <li class="rv"><span class="what">HTML &amp; CSS</span><span class="lead"></span><span class="lvl">Comfortable</span><p class="note">Enough to build and style a whole page, like this one.</p></li>
+      <li class="rv"><span class="what">JavaScript</span><span class="lead"></span><span class="lvl">Learning</span><p class="note">Making things move and respond. Still looking things up daily.</p></li>
+      <li class="rv"><span class="what">Python</span><span class="lead"></span><span class="lvl">Learning</span><p class="note">Small scripts and exercises.</p></li>
+      <li class="rv"><span class="what">C</span><span class="lead"></span><span class="lvl">Learning</span><p class="note">The one that teaches you what the computer is really doing.</p></li>
+      <li class="rv"><span class="what">Git &amp; GitHub</span><span class="lead"></span><span class="lvl">Just met</span><p class="note">Commits make sense. Branches are still a plot twist.</p></li>
+      <li class="rv"><span class="what">Visual design</span><span class="lead"></span><span class="lvl">Learning</span><p class="note">Spacing, type and colour. I notice more every week.</p></li>
+    </ul>
+    <p class="key rv">Just met &nbsp;/&nbsp; Learning &nbsp;/&nbsp; Comfortable</p>
+  </div>
+</section>
+
+<div class="cut"><span>Cut to</span></div>
+
+<!-- ============ JOURNEY ============ -->
+<section class="journey" id="journey" data-scene="Scene 03 — The reels">
+  <div class="wrap">
+    <h2 class="h2 rv"><span class="sc">Scene 03</span>Three reels</h2>
+    <!-- EDIT: swap in your real projects and goals -->
+    <article class="reel rv">
+      <div class="num" aria-hidden="true">01</div>
+      <div>
+        <h3><span class="k">Already shot</span>What I've made</h3>
+        <ul>
+          <li>This portfolio, drawn entirely in code. No images, no templates.</li>
+          <li>Small programs and exercises from my first semesters.</li>
+        </ul>
+      </div>
+    </article>
+    <article class="reel rv">
+      <div class="num" aria-hidden="true">02</div>
+      <div>
+        <h3><span class="k">In the edit</span>What I'm learning</h3>
+        <ul>
+          <li>Programming fundamentals, properly, not just enough to pass.</li>
+          <li>How the web works, from a link click to a finished page.</li>
+          <li>Using Git without being afraid of it.</li>
+        </ul>
+      </div>
+    </article>
+    <article class="reel rv">
+      <div class="num" aria-hidden="true">03</div>
+      <div>
+        <h3><span class="k">Coming soon</span>What I want to build</h3>
+        <p>Something small that fixes an annoying problem for students on campus: a timetable, a study planner, a tool that saves ten minutes a day. Then something bigger, once I've earned it.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<div class="cut"><span>Cut to</span></div>
+
+<!-- ============ BEYOND CODE ============ -->
+<section class="beyond" id="beyond" data-scene="Scene 04 — Deleted scenes">
+  <div class="wrap">
+    <h2 class="h2 rv"><span class="sc">Scene 04</span>Deleted scenes</h2>
+    <p class="rv" style="max-width:30em;color:var(--dim);margin:0">The parts that don't fit on a résumé, but are still me.</p>
+    <!-- EDIT: replace with your real hobbies and fun facts -->
+    <div class="slips">
+      <div class="slip rv"><span class="tape">Hobby</span><h3>Films, and their first 90 seconds</h3><p>I'll happily rewatch an opening title sequence three times. It's the reason this whole site looks like one.</p></div>
+      <div class="slip rv" style="--d:.1s"><span class="tape">Habit</span><h3>Music on, headphones in</h3><p>Most of my code gets written with a playlist running. Quiet is for debugging.</p></div>
+      <div class="slip rv" style="--d:.2s"><span class="tape">Fun fact</span><h3>The intro is timed</h3><p>The opening of this site is timed to a tenth of a second, and it has a skip button because I'd want one too.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="cut"><span>Cut to</span></div>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact" data-scene="Scene 05 — End credits">
+  <div class="wrap">
+    <h2 class="sc rv" style="margin-bottom:1.2rem">Scene 05</h2>
+    <p class="big rv">Say <em>hi.</em></p>
+    <p class="lede rv">If you want to talk about a project, a course, or a film worth watching, I'd like to hear from you.</p>
+    <ul class="credits">
+      <li class="rv"><a data-me="email" href="#"><span class="role">Email</span><span class="val"></span></a></li>
+      <li class="rv"><a data-me="linkedin" href="#" target="_blank" rel="noopener"><span class="role">LinkedIn</span><span class="val"></span></a></li>
+      <li class="rv"><a data-me="github" href="#" target="_blank" rel="noopener"><span class="role">GitHub</span><span class="val"></span></a></li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer data-scene="Scene 05 — End credits">
+  <div class="end rv">The End</div>
+  <p class="rv">© 2026 Jai Gunal S</p>
+</footer>
+
+<!-- Easter egg: clapperboard -->
+<div id="clap" role="dialog" aria-label="Easter egg: clapperboard" aria-hidden="true">
+  <div>
+    <div class="slate">
+      <div class="sticks"><div class="stick arm"></div><div class="stick base"></div></div>
+      <div class="board">
+        <dl>
+          <div><dt>Scene</dt><dd>01</dd></div>
+          <div><dt>Take</dt><dd>01</dd></div>
+          <div class="wide"><dt>Director</dt><dd>Jai Gunal S</dd></div>
+          <div class="wide"><dt>Film</dt><dd>My first portfolio</dd></div>
+        </dl>
+      </div>
+    </div>
+    <p class="cutword">Cut!</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ===== EDIT YOUR LINKS HERE ===== */
+  var ME = {
+    email:    'your.email@example.com',
+    linkedin: 'https://www.linkedin.com/in/your-handle',
+    github:   'https://github.com/your-handle'
+  };
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var body = document.body;
+
+  /* ---- fill contact links ---- */
+  document.querySelectorAll('[data-me]').forEach(function(a){
+    var k = a.getAttribute('data-me'), v = ME[k];
+    a.href = k === 'email' ? 'mailto:' + v : v;
+    a.querySelector('.val').textContent = v.replace(/^https?:\/\/(www\.)?/, '');
+  });
+
+  /* ---- opening title sequence ---- */
+  var intro = document.getElementById('intro');
+  var words = intro.querySelectorAll('[data-w]');
+  var iname = document.getElementById('iname');
+  var timers = [], finished = false;
+
+  function later(fn, ms){ timers.push(setTimeout(fn, ms)); }
+
+  function finish(fast){
+    if (finished) return;
+    finished = true;
+    timers.forEach(clearTimeout);
+    if (fast){
+      intro.remove();
+      body.classList.add('ready');
+      return;
+    }
+    intro.classList.add('out');
+    later(function(){ intro.remove(); }, 420);
+    body.classList.add('ready');
+  }
+
+  if (reduce){
+    finish(true);
+  } else {
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ intro.classList.add('on'); }); });
+    var t = 380;
+    words.forEach(function(w, i){
+      later(function(){
+        if (words[i-1]) words[i-1].classList.remove('show');
+        w.classList.add('show');
+      }, t + i * 340);
+    });
+    later(function(){ words[words.length-1].classList.remove('show'); iname.classList.add('show'); }, 1400);
+    later(function(){ finish(false); }, 2050);          /* ends fully by ~2.45s */
+    document.getElementById('skip').addEventListener('click', function(){ finish(true); });
+  }
+
+  /* ---- reveal on scroll ---- */
+  var rv = document.querySelectorAll('.rv');
+  if ('IntersectionObserver' in window && !reduce){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: .12, rootMargin: '0px 0px -6% 0px' });
+    rv.forEach(function(el){ io.observe(el); });
+    /* hero items reveal once the intro ends */
+    var heroWait = setInterval(function(){
+      if (body.classList.contains('ready')){
+        clearInterval(heroWait);
+        document.querySelectorAll('.hero .rv').forEach(function(el){ el.classList.add('in'); });
+      }
+    }, 60);
+  } else {
+    rv.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* ---- film-strip progress, scene label, timecode ---- */
+  var fill = document.getElementById('fill');
+  var sceneEl = document.getElementById('scene');
+  var tcEl = document.getElementById('tc');
+  var scenes = Array.prototype.slice.call(document.querySelectorAll('[data-scene]'));
+  var ticking = false, lastScene = '';
+
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+
+  function update(){
+    ticking = false;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    fill.style.setProperty('--p', (p * 100).toFixed(2) + '%');
+
+    var frames = Math.round(p * 90 * 24);           /* a 90-second "film" at 24fps */
+    var s = Math.floor(frames / 24), f = frames % 24;
+    tcEl.textContent = pad(Math.floor(s / 60)) + ':' + pad(s % 60) + ':' + pad(f);
+
+    var current = scenes[0];
+    var line = window.innerHeight * .5;
+    scenes.forEach(function(el){ if (el.getBoundingClientRect().top < line) current = el; });
+    var label = current.getAttribute('data-scene');
+    if (label !== lastScene){ sceneEl.textContent = label; lastScene = label; }
+  }
+  function onScroll(){ if (!ticking){ ticking = true; requestAnimationFrame(update); } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+
+  /* ---- signature move: smooth anchor jumps close the loop ---- */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href');
+      if (id.length < 2) return;
+      var target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    });
+  });
+
+  /* ---- easter egg: type "action" or tap the monogram 3 times ---- */
+  var clap = document.getElementById('clap');
+  var clapTimer;
+  function showClap(){
+    clap.classList.remove('on');
+    void clap.offsetWidth;                          /* restart the animation */
+    clap.classList.add('on');
+    clap.setAttribute('aria-hidden', 'false');
+    clearTimeout(clapTimer);
+    clapTimer = setTimeout(hideClap, 3600);
+  }
+  function hideClap(){
+    clap.classList.remove('on');
+    clap.setAttribute('aria-hidden', 'true');
+  }
+  clap.addEventListener('click', hideClap);
+
+  var buf = '';
+  window.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') return hideClap();
+    if (e.key.length !== 1) return;
+    buf = (buf + e.key.toLowerCase()).slice(-6);
+    if (buf === 'action'){ buf = ''; showClap(); }
+  });
+
+  var taps = 0, tapTimer;
+  document.getElementById('mono').addEventListener('click', function(){
+    taps++;
+    clearTimeout(tapTimer);
+    tapTimer = setTimeout(function(){ taps = 0; }, 900);
+    if (taps >= 3){ taps = 0; showClap(); }
+  });
+})();
+</script>
+</body>
+</html>
